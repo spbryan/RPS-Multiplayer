@@ -6,11 +6,40 @@
 
 /* Element Styling */
 body {
-    /* background-image: url(../images/ocean5.jpg); */
+    background-image: url(../images/background3.jpg);
     background-attachment: fixed;
     background-size: cover;
 }
 
+button {
+    margin: 0 5px;
+    color: rgb(255, 255, 255); 
+    font-size: 16px; 
+    line-height: 16px; 
+    padding: 6px; 
+    border-radius: 10px; 
+    font-family: Georgia, serif; 
+    font-weight: normal; 
+    text-decoration: none; 
+    font-style: normal; 
+    font-variant: normal; 
+    text-transform: none; 
+    display: inline-block;
+}
+
 /* Class Styling */
+.ready-button {
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+    background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);   
+    border: 2px solid rgb(28, 110, 164); 
+}
+
+.rps-image {
+    height: 200px;
+    width: 200px;
+}
 
 /* ID Styling */
+#player1-wrapper {
+    border-right: 5px solid red;
+}
