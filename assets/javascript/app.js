@@ -17,25 +17,31 @@ $(document).ready(function () {
         displayBattleOptions("player2");
     }
 
+    function saveSelection() {
+        var type = $(this).attr("data-type");
+        var player = $(this).attr("data-player");
+        alert(type);
+        alert(player);
+    }
+
     function displayBattleOptions(player) {
         var rock = createBattleElement(player, "rock");
         var paper = createBattleElement(player, "paper");
         var scissors = createBattleElement(player, "scissors");
 
-        $("#" + player + "-wrapper").append(rock);
-        $("#" + player + "-wrapper").append(paper);
-        $("#" + player + "-wrapper").append(scissors);
+        $("." + player + "-select").append(rock);
+        $("." + player + "-select").append(paper);
+        $("." + player + "-select").append(scissors);
     }
 
     function createBattleElement(player, type) {
-        var columnElement = $("<div>");
-        columnElement.addClass("col-sm-12");
         var imageContainer = $("<div>");
         imageContainer.addClass("image-container");
         imageContainer.addClass("text-center");
         var image = $("<img>");
         image.addClass("rps-image");
-        image.attr("data-name", type);
+        image.attr("data-type", type);
+        image.attr("data-player", player);
         if (player === "player1") {
             image.attr("src","./assets/images/" + type + "1.jpg");
         }
@@ -49,17 +55,9 @@ $(document).ready(function () {
 
         imageContainer.append(image);
         imageContainer.append(imageBanner);
-        columnElement.append(imageContainer);
 
-        return columnElement;
+        return imageContainer;
     }
-
-//     <div class="col-sm-12">
-//     <div class="image-container">
-//         <img class="rock-image rps-image" src="./assets/images/rock1.jpg" alt="Player 1 Rock">
-//         <p class="image-banner">Rock</p>
-//     </div>
-// </div>
 
     function displayPlayerReadyButtons(displayButtons) {
         if (displayButtons) {
@@ -77,6 +75,9 @@ $(document).ready(function () {
 
     /** On-Click for Ready Player 2 */
     $(document).on("click", "#ready-player2", readyPlayer2);
+
+    /** On-Click for image select */
+    $(document).on("click", ".rps-image", saveSelection);
 
     // $(".show-favorite-button").hide();
     // renderButtons();

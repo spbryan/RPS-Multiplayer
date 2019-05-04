@@ -6,7 +6,7 @@
 
 /* Element Styling */
 body {
-    background-image: url(../images/background3.jpg);
+    background-image: url(../images/background5.jpg);
     background-attachment: fixed;
     background-size: cover;
 }
@@ -35,8 +35,8 @@ button {
 }
 
 .rps-image {
-    height: 200px;
-    width: 200px;
+    height: 175px;
+    width: 175px;
 }
 
 /* ID Styling */
