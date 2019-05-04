@@ -22,8 +22,9 @@ $(document).ready(function () {
     // Initial Values
     var player = "";
     var selection = "";
+    var player1Selection = "";
     var player1Victories = 0;
-    // var player2Selection = "";
+    var player2Selection = "";
     var player2Victories = 0;
     var ties = 0;
     var playerComments = "";
@@ -45,14 +46,54 @@ $(document).ready(function () {
         var selection = $(this).attr("data-selection");
         var player = $(this).attr("data-player");
 
-        console.log(selection);
-        console.log(player);
+        // console.log(selection);
+        // console.log(player);
 
         database.ref().push({
             player,
             selection
         });
+
+        //Using set
+        // if(player === "player1") {
+        //     database.ref().set({
+        //         player1Selection: selection
+        //     });
+        // }
+        // else {
+        //     database.ref().set({
+        //         player2Selection: selection
+        //     });
+        // }
     }
+
+    database.ref().on("value", function (snapshot) {
+        var player1Selection = "";
+        var player2Selection = "";
+
+        console.log(snapshot.val());
+
+        snapshot.forEach(function (child) {
+            // console.log(child.key + ": " + child.val());
+            var player = child.val().player;
+            var selection = child.val().selection;
+            if (player && selection) {
+                if (player === "player1") {
+                    player1Selection = selection;
+                }
+                else {
+                    player2Selection = selection;
+                }
+            }
+
+            if (player1Selection && player2Selection) {
+                alert("Both selected");
+                database.ref().remove();              
+            }
+        });
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
     function displayBattleOptions(player) {
         var rock = createBattleElement(player, "rock");
@@ -111,5 +152,5 @@ $(document).ready(function () {
 
     // $(".show-favorite-button").hide();
     // renderButtons();
-    
+
 });
