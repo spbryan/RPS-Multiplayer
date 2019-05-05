@@ -114,6 +114,26 @@ $(document).ready(function () {
     }
 
     /**
+     * Display an image indicating that you are waiting for input from your opponent
+     * @param playerNumber 
+     */
+    function displayWaitingStatus(playerNumber) {
+        debugger;
+        var imageDiv = $("<div>");
+        imageDiv.addClass("waiting-container rounded");
+        var image = $("<img>");
+        image.addClass("waiting-image");
+        image.attr("src", "./assets/images/shieldwall" + playerNumber + ".jpg");
+        image.attr("alt", "Shieldwall");
+        var banner = $("<p>");
+        banner.addClass("image-banner");
+        banner.text("Waiting for Thy Opponent...")
+        imageDiv.append(image);
+        imageDiv.append(banner);
+        $(".player" + playerNumber + "-waiting").append(imageDiv);
+    }
+
+    /**
      * Orchestrates the display of the rock, paper, scissors options
      * @param player 
      */
@@ -148,7 +168,7 @@ $(document).ready(function () {
         }
         image.attr("alt", selection);
         var imageBanner = $("<p>");
-        imageBanner.addClass("image-banner");
+        imageBanner.addClass("rps-banner");
         imageBanner.text(selection.toUpperCase());
 
         imageContainer.append(image);
@@ -185,10 +205,14 @@ $(document).ready(function () {
                 player2Selection = snapshot.val().player2.selection;
             }
 
-            console.log(player1Selection);
-            console.log(player2Selection);
-
-            if (player1Selection && player2Selection) {
+            if(!player1Selection) {
+                displayWaitingStatus("1");
+            }
+            else if (!player2Selection) {
+                displayWaitingStatus("2");
+            }
+            else {
+                $(".waiting").empty();
                 var winner = determineWinner();
                 alert("Winner is: " + winner);
             }

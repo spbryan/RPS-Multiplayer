@@ -28,6 +28,10 @@ button {
 }
 
 /* Class Styling */
+.waiting {
+    margin-top: 38%;
+}
+
 .ready-button {
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
     background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);   
@@ -42,7 +46,31 @@ button {
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
 }
 
+.waiting-image {
+    height: 175px;
+    width: 300px;
+    border: 3px solid black;
+    border-style: inset;
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+}
+
+.image-banner {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: black;
+    width: 250px;
+    padding:3px 0;
+}
+
 /* ID Styling */
 #player1-wrapper {
     border-right: 5px solid red;
+}
+
+#ready-player1,
+#ready-player2 {
+    margin-top: 38%;
 }
