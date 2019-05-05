@@ -6,6 +6,7 @@
 
 $(document).ready(function () {
     // Global Variables
+    var databaseReady = false;
 
     var config = {
         apiKey: "AIzaSyAp3Qe_0i-NO1NUHSObvPWoFtsCJ6K49KM",
@@ -20,8 +21,6 @@ $(document).ready(function () {
     var database = firebase.database();
 
     // Initial Values
-    var player = "";
-    var selection = "";
     var player1Selection = "";
     var player1Victories = 0;
     var player2Selection = "";
@@ -33,11 +32,29 @@ $(document).ready(function () {
     function readyPlayer1() {
         displayPlayerReadyButtons(false);
         displayBattleOptions("player1");
+
+        var player1 = database.ref("/player1");
+        player1.update({
+            "selection": player1Selection,
+            "victories": player1Victories,
+            "ties": ties
+        });
+
+        databaseReady = true;
     }
 
     function readyPlayer2() {
         displayPlayerReadyButtons(false);
         displayBattleOptions("player2");
+
+        var player2 = database.ref("/player2");
+        player2.update({
+            "selection": player2Selection,
+            "victories": player2Victories,
+            "ties": ties
+        });
+
+        databaseReady = true;
     }
 
     function saveSelection() {
@@ -46,51 +63,39 @@ $(document).ready(function () {
         var selection = $(this).attr("data-selection");
         var player = $(this).attr("data-player");
 
-        // console.log(selection);
-        // console.log(player);
-
-        database.ref().push({
-            player,
-            selection
-        });
-
-        //Using set
-        // if(player === "player1") {
-        //     database.ref().set({
-        //         player1Selection: selection
-        //     });
-        // }
-        // else {
-        //     database.ref().set({
-        //         player2Selection: selection
-        //     });
-        // }
+        if (player === "player1") {
+            var player1 = database.ref("/player1");
+            player1.update({
+                "selection": selection
+            });
+        }
+        else {
+            var player2 = database.ref("/player2");
+            player2.update({
+                "selection": selection
+            });
+        }
     }
 
     database.ref().on("value", function (snapshot) {
-        var player1Selection = "";
-        var player2Selection = "";
-
-        console.log(snapshot.val());
-
-        snapshot.forEach(function (child) {
-            // console.log(child.key + ": " + child.val());
-            var player = child.val().player;
-            var selection = child.val().selection;
-            if (player && selection) {
-                if (player === "player1") {
-                    player1Selection = selection;
-                }
-                else {
-                    player2Selection = selection;
-                }
+        if (databaseReady) {
+            if (snapshot.val().player1) {
+                player1Selection = snapshot.val().player1.selection;
             }
+
+            if (snapshot.val().player2) {
+                player2Selection = snapshot.val().player2.selection;
+            }
+
+            console.log(player1Selection);
+            console.log(player2Selection);
 
             if (player1Selection && player2Selection) {
-                alert("Both selected");
-                database.ref().remove();              
+                alert("boom");
             }
-        });
+        }
+
+        //database.ref().remove();  //don't delete
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
