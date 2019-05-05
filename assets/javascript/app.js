@@ -127,7 +127,7 @@ $(document).ready(function () {
         image.attr("alt", "Shieldwall");
         var banner = $("<p>");
         banner.addClass("image-banner");
-        banner.text("Waiting for Thy Opponent...")
+        banner.text("Awaiting Thy Opponent...")
         imageDiv.append(image);
         imageDiv.append(banner);
         $(".player" + playerNumber + "-waiting").append(imageDiv);
