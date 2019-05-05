@@ -28,7 +28,37 @@ $(document).ready(function () {
     var ties = 0;
     var playerComments = "";
 
+    /**
+     * Logic that determines a winner (or tie) based on the selected values
+     */
+    function determineWinner() {
+        var winnerPlayer1 = false;
+        if (player1Selection !== player2Selection) {
+            if (player1Selection === "rock" && player2Selection === "scissors") {
+                winnerPlayer1 = true;
+            }
+            if (player1Selection === "paper" && player2Selection === "rock") {
+                winnerPlayer1 = true;
+            }
+            if (player1Selection === "scissors" && player2Selection === "paper") {
+                winnerPlayer1 = true;
+            }
 
+            if (winnerPlayer1) {
+                return("player1");
+            }
+            else {
+                return("player2");
+            }
+        }
+        else {
+            return "tie";
+        }
+    }
+
+    /**
+     * Creates display for player one and an initial data base entry
+     */
     function readyPlayer1() {
         displayPlayerReadyButtons(false);
         displayBattleOptions("player1");
@@ -43,6 +73,9 @@ $(document).ready(function () {
         databaseReady = true;
     }
 
+    /**
+     * Creates display for player two and an initial data base entry
+     */
     function readyPlayer2() {
         displayPlayerReadyButtons(false);
         displayBattleOptions("player2");
@@ -57,6 +90,9 @@ $(document).ready(function () {
         databaseReady = true;
     }
 
+    /**
+     * Updates the selection field in the data base
+     */
     function saveSelection() {
         event.preventDefault();
 
@@ -77,29 +113,10 @@ $(document).ready(function () {
         }
     }
 
-    database.ref().on("value", function (snapshot) {
-        if (databaseReady) {
-            if (snapshot.val().player1) {
-                player1Selection = snapshot.val().player1.selection;
-            }
-
-            if (snapshot.val().player2) {
-                player2Selection = snapshot.val().player2.selection;
-            }
-
-            console.log(player1Selection);
-            console.log(player2Selection);
-
-            if (player1Selection && player2Selection) {
-                alert("boom");
-            }
-        }
-
-        //database.ref().remove();  //don't delete
-    }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    });
-
+    /**
+     * Orchestrates the display of the rock, paper, scissors options
+     * @param player 
+     */
     function displayBattleOptions(player) {
         var rock = createBattleElement(player, "rock");
         var paper = createBattleElement(player, "paper");
@@ -110,6 +127,11 @@ $(document).ready(function () {
         $("." + player + "-select").append(scissors);
     }
 
+    /**
+     * Creates the elements to display to rock, paper, or scissors icon
+     * @param player 
+     * @param selection 
+     */
     function createBattleElement(player, selection) {
         var imageContainer = $("<div>");
         imageContainer.addClass("image-container");
@@ -135,6 +157,10 @@ $(document).ready(function () {
         return imageContainer;
     }
 
+    /**
+     * Toggles the display of the "Ready Player" buttons
+     * @param displayButtons 
+     */
     function displayPlayerReadyButtons(displayButtons) {
         if (displayButtons) {
             $("#ready-player1").show();
@@ -145,6 +171,33 @@ $(document).ready(function () {
             $("#ready-player2").hide();
         }
     }
+
+    /**
+     * Listens for changes to the values on the data base
+     */
+    database.ref().on("value", function (snapshot) {
+        if (databaseReady) {
+            if (snapshot.val().player1) {
+                player1Selection = snapshot.val().player1.selection;
+            }
+
+            if (snapshot.val().player2) {
+                player2Selection = snapshot.val().player2.selection;
+            }
+
+            console.log(player1Selection);
+            console.log(player2Selection);
+
+            if (player1Selection && player2Selection) {
+                var winner = determineWinner();
+                alert("Winner is: " + winner);
+            }
+        }
+
+        //database.ref().remove();  //don't delete
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
     /** On-Click for Ready Player 1 */
     $(document).on("click", "#ready-player1", readyPlayer1);
