@@ -138,13 +138,19 @@ $(document).ready(function () {
      * @param player 
      */
     function displayBattleOptions(player) {
-        var rock = createBattleElement(player, "rock");
-        var paper = createBattleElement(player, "paper");
-        var scissors = createBattleElement(player, "scissors");
+        var rock = createBattleElement(player, "rock", "rps-image");
+        var paper = createBattleElement(player, "paper", "rps-image");
+        var scissors = createBattleElement(player, "scissors", "rps-image");
 
         $("." + player + "-select").append(rock);
         $("." + player + "-select").append(paper);
         $("." + player + "-select").append(scissors);
+    }
+
+    function displaySelection(player, selection) {
+        $("." + player + "-select").empty();
+        var selection = createBattleElement(player, selection, "selected-image");
+        $("." + player + "-waiting").append(selection);
     }
 
     /**
@@ -152,12 +158,12 @@ $(document).ready(function () {
      * @param player 
      * @param selection 
      */
-    function createBattleElement(player, selection) {
+    function createBattleElement(player, selection, imgClass) {
         var imageContainer = $("<div>");
         imageContainer.addClass("image-container");
         imageContainer.addClass("text-center");
         var image = $("<img>");
-        image.addClass("rps-image");
+        image.addClass(imgClass);
         image.attr("data-selection", selection);
         image.attr("data-player", player);
         if (player === "player1") {
@@ -205,14 +211,23 @@ $(document).ready(function () {
                 player2Selection = snapshot.val().player2.selection;
             }
 
-            if(!player1Selection) {
-                displayWaitingStatus("1");
-            }
-            else if (!player2Selection) {
-                displayWaitingStatus("2");
+            if (player1Selection) {
+                $(".player1-waiting").empty();
+                displaySelection("player1", player1Selection);
             }
             else {
-                $(".waiting").empty();
+                displayWaitingStatus("1");
+            }
+
+            if (player2Selection) {
+                $(".player2-waiting").empty();
+                displaySelection("player2", player2Selection);
+            }
+            else {
+                displayWaitingStatus("2");
+            }
+
+            if (player1Selection && player2Selection) {
                 var winner = determineWinner();
                 alert("Winner is: " + winner);
             }
