@@ -4,9 +4,14 @@
  * Date: 2019-05-04
 *********************************************/
 
+/* font-family: 'UnifrakturMaguntia', cursive; */
+/* font-family: 'Uncial Antiqua', cursive; */
+/* font-family: 'Nosifer', cursive; */
+/* font-family: 'MedievalSharp', cursive; */
+
 /* Element Styling */
 body {
-    background-image: url(../images/background8.jpg);
+    background-image: url(../images/background3.jpg);
     background-attachment: fixed;
     background-size: cover;
 }
@@ -25,6 +30,17 @@ button {
     font-variant: normal; 
     text-transform: none; 
     display: inline-block;
+}
+
+h1 {
+    /* font-family: 'UnifrakturMaguntia', cursive; */
+    /* font-family: 'Uncial Antiqua', cursive; */
+    /* font-family: 'Nosifer', cursive; */
+    font-family: 'MedievalSharp', cursive;
+    color: aliceblue;
+    font-size: 70px;
+    /* text-shadow: 4px 4px #FF0000; */
+    text-shadow: 4px 4px black;
 }
 
 /* Class Styling */
@@ -79,11 +95,23 @@ button {
 }
 
 /* ID Styling */
-/* #player1-wrapper {
-    border-right: 5px solid red;
-} */
+#header {
+    margin-top: 10px;
+}
 
 #ready-player1,
 #ready-player2 {
     margin-top: 38%;
+}
+
+#card-timer {
+    border: 3px solid black;
+    border-style: inset;
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+    /* border-radius: 25px; */
+}
+
+#battle-timer {
+    background-color: black;
+    color: white;
 }

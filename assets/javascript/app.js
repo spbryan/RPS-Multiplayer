@@ -7,6 +7,8 @@
 $(document).ready(function () {
     // Global Variables
     var databaseReady = false;
+    var battleIntervalId;
+    var battleCountdown = 3;
 
     var config = {
         apiKey: "AIzaSyAp3Qe_0i-NO1NUHSObvPWoFtsCJ6K49KM",
@@ -28,6 +30,34 @@ $(document).ready(function () {
     var ties = 0;
     var playerComments = "";
 
+    function startBattle() {
+        $("#card-timer").show();
+        $("#battle-timer").html("<h4>" + "Battle in: 3" +"</h2>");
+        displaySelection("player1", player1Selection);
+        displaySelection("player2", player2Selection);
+        battleCountdown = 3;
+        battleIntervalId = setInterval(battleTimer, 1000);
+    }
+
+    function battleTimer() {
+        battleCountdown--;
+        $("#battle-timer").html("<h4>" + "Battle in: " + battleCountdown + "</h2>");
+
+        if (battleCountdown === 0) {
+            stopBattleTimer();
+            $("#card-timer").hide();
+            var winner = determineWinner();
+            alert("Winner is: " + winner);
+        }
+    }
+
+    /**
+     * Stops the battle timer
+     */
+    function stopBattleTimer() {
+        clearInterval(battleIntervalId);  //stops the interval
+    }
+
     /**
      * Logic that determines a winner (or tie) based on the selected values
      */
@@ -45,10 +75,10 @@ $(document).ready(function () {
             }
 
             if (winnerPlayer1) {
-                return("player1");
+                return ("player1");
             }
             else {
-                return("player2");
+                return ("player2");
             }
         }
         else {
@@ -104,12 +134,14 @@ $(document).ready(function () {
             player1.update({
                 "selection": selection
             });
+            $(".player1-select").empty();
         }
         else {
             var player2 = database.ref("/player2");
             player2.update({
                 "selection": selection
             });
+            $(".player2-select").empty();
         }
     }
 
@@ -211,25 +243,18 @@ $(document).ready(function () {
                 player2Selection = snapshot.val().player2.selection;
             }
 
-            if (player1Selection) {
-                $(".player1-waiting").empty();
-                displaySelection("player1", player1Selection);
-            }
-            else {
-                displayWaitingStatus("1");
-            }
-
-            if (player2Selection) {
-                $(".player2-waiting").empty();
-                displaySelection("player2", player2Selection);
-            }
-            else {
+            if (player1Selection && !player2Selection) {
                 displayWaitingStatus("2");
             }
 
+            if (player2Selection && !player1Selection) {
+                displayWaitingStatus("1");
+            }
+
             if (player1Selection && player2Selection) {
-                var winner = determineWinner();
-                alert("Winner is: " + winner);
+                $(".player1-waiting").empty();
+                $(".player2-waiting").empty();
+                startBattle();
             }
         }
 
@@ -247,7 +272,8 @@ $(document).ready(function () {
     /** On-Click for image select */
     $(document).on("click", ".rps-image", saveSelection);
 
-    // $(".show-favorite-button").hide();
+    $(".arena").hide();
+    $("#card-timer").hide();
     // renderButtons();
 
 });

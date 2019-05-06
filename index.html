@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rock Paper Scissors</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=MedievalSharp|Nosifer|Uncial+Antiqua|UnifrakturMaguntia"
+        rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
@@ -18,7 +20,7 @@
     <section class="container">
         <section class="row text-center mt-1">
             <div class="col-sm-12" id="header">
-                <h1>Rock Paper Scissors</h1>
+                <h1>Rock, Paper, Scissors</h1>
             </div>
         </section>
         <section class="row player-wrapper">
@@ -36,7 +38,12 @@
                     </div>
                 </div>
             </section>
-            <section class="col-sm-2 versus">               
+            <section class="col-sm-2 mid-field">
+                <div class="card" id="card-timer">
+                    <img class="card-img-top" src="./assets/images/swords.jpg" alt="Crossed Swords">
+                    <div class="card-body" id="battle-timer">     
+                    </div>
+                </div>
             </section>
             <section class="col-sm-5" id="player2-wrapper">
                 <div class="row text-center">
@@ -52,6 +59,14 @@
                     </div>
                 </div>
             </section>
+        </section>
+        <section class="row arena">
+            <!-- <section class="col-sm-4" id="player1-side">
+            </section>
+            <section class="col-sm-4 mid-field">               
+            </section>
+            <section class="col-sm-4" id="player2-side">
+            </section> -->
         </section>
     </section>
     <script src="./assets/javascript/app.js"></script>
