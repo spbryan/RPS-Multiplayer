@@ -41,12 +41,13 @@ $(document).ready(function () {
 
     function battleTimer() {
         battleCountdown--;
-        $("#battle-timer").html("<h4>" + "Battle in: " + battleCountdown + "</h2>");
+        $("#battle-timer").html("<h4>" + "Battle in: " + battleCountdown + "</h4>");
 
         if (battleCountdown === 0) {
             stopBattleTimer();
             $("#card-timer").hide();
             var winner = determineWinner();
+            updateWinCountAndResetSelection(winner);
             alert("Winner is: " + winner);
         }
     }
@@ -145,6 +146,30 @@ $(document).ready(function () {
         }
     }
 
+    function updateWinCountAndResetSelection(player) {
+        database.ref().once("value", function (snapshot) {
+            var player1WinCount = snapshot.val().player1.victories;
+            var player2WinCount = snapshot.val().player2.victories;
+            if (player == "player1") {
+                player1WinCount++;
+            }
+            else if (player == "player2") {
+                player2WinCount++;
+            }
+
+            snapshot.ref.update({
+                "player1/victories": player1WinCount,
+                "player2/victories": player2WinCount,
+                "player1/selection": "",
+                "player2/selection": ""
+            });
+    
+            //database.ref().remove();  //don't delete
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+    }
+
     /**
      * Display an image indicating that you are waiting for input from your opponent
      * @param playerNumber 
@@ -182,6 +207,10 @@ $(document).ready(function () {
         $("." + player + "-select").empty();
         var selection = createBattleElement(player, selection, "selected-image");
         $("." + player + "-waiting").append(selection);
+    }
+
+    function displayNumberofWins(player, winCount) {
+        $("#" + player + "-wins").html("<h2>" + "Victories: " + winCount + "</h2>");
     }
 
     /**
@@ -238,6 +267,7 @@ $(document).ready(function () {
             if (databaseReady) {
                 player1Selection = snapshot.val().player1.selection;
             }
+            displayNumberofWins("player1", snapshot.val().player1.victories);
         }
 
         if (snapshot.val().player2) {
@@ -245,6 +275,7 @@ $(document).ready(function () {
             if (databaseReady) {
                 player2Selection = snapshot.val().player2.selection;
             }
+            displayNumberofWins("player2", snapshot.val().player2.victories);
         }
 
         if (player1Selection && !player2Selection) {
