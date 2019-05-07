@@ -11,7 +11,7 @@
 
 /* Element Styling */
 body {
-    background-image: url(../images/background3.jpg);
+    background-image: url(../images/background8.jpg);
     background-attachment: fixed;
     background-size: cover;
 }
@@ -34,11 +34,22 @@ button {
 
 h1 {
     /* font-family: 'UnifrakturMaguntia', cursive; */
+    font-family: 'Uncial Antiqua', cursive;
+    /* font-family: 'Nosifer', cursive; */
+    /* font-family: 'MedievalSharp', cursive; */
+    color: aliceblue;
+    font-size: 70px;
+    /* text-shadow: 4px 4px #FF0000; */
+    text-shadow: 4px 4px black;
+}
+
+h2 {
+    /* font-family: 'UnifrakturMaguntia', cursive; */
     /* font-family: 'Uncial Antiqua', cursive; */
     /* font-family: 'Nosifer', cursive; */
     font-family: 'MedievalSharp', cursive;
     color: aliceblue;
-    font-size: 70px;
+    /* font-size: 70px; */
     /* text-shadow: 4px 4px #FF0000; */
     text-shadow: 4px 4px black;
 }
@@ -92,6 +103,10 @@ h1 {
     background-color: black;
     width: 250px;
     padding:3px 0;
+}
+
+.mid-field {
+    margin-top: 25%;
 }
 
 /* ID Styling */

@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     function startBattle() {
         $("#card-timer").show();
-        $("#battle-timer").html("<h4>" + "Battle in: 3" +"</h2>");
+        $("#battle-timer").html("<h4>" + "Battle in: 3" + "</h2>");
         displaySelection("player1", player1Selection);
         displaySelection("player2", player2Selection);
         battleCountdown = 3;
@@ -150,7 +150,6 @@ $(document).ready(function () {
      * @param playerNumber 
      */
     function displayWaitingStatus(playerNumber) {
-        debugger;
         var imageDiv = $("<div>");
         imageDiv.addClass("waiting-container rounded");
         var image = $("<img>");
@@ -234,28 +233,32 @@ $(document).ready(function () {
      * Listens for changes to the values on the data base
      */
     database.ref().on("value", function (snapshot) {
-        if (databaseReady) {
-            if (snapshot.val().player1) {
+        if (snapshot.val().player1) {
+            $("#ready-player1").hide();
+            if (databaseReady) {
                 player1Selection = snapshot.val().player1.selection;
             }
+        }
 
-            if (snapshot.val().player2) {
+        if (snapshot.val().player2) {
+            $("#ready-player2").hide();
+            if (databaseReady) {
                 player2Selection = snapshot.val().player2.selection;
             }
+        }
 
-            if (player1Selection && !player2Selection) {
-                displayWaitingStatus("2");
-            }
+        if (player1Selection && !player2Selection) {
+            displayWaitingStatus("2");
+        }
 
-            if (player2Selection && !player1Selection) {
-                displayWaitingStatus("1");
-            }
+        if (player2Selection && !player1Selection) {
+            displayWaitingStatus("1");
+        }
 
-            if (player1Selection && player2Selection) {
-                $(".player1-waiting").empty();
-                $(".player2-waiting").empty();
-                startBattle();
-            }
+        if (player1Selection && player2Selection) {
+            $(".player1-waiting").empty();
+            $(".player2-waiting").empty();
+            startBattle();
         }
 
         //database.ref().remove();  //don't delete
