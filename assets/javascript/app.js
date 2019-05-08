@@ -28,6 +28,8 @@ $(document).ready(function () {
     var player2Selection = "";
     var player2Victories = 0;
     var ties = 0;
+    var finalWinner = "";
+    var userSelection = "";
     var playerComments = "";
 
     function startBattle() {
@@ -48,7 +50,41 @@ $(document).ready(function () {
             $("#card-timer").hide();
             var winner = determineWinner();
             updateWinCountAndResetSelection(winner);
-            alert("Winner is: " + winner);
+            displayResults(winner);
+            transitionToNextBattle();
+            // alert("Winner is: " + winner);
+        }
+    }
+
+    function transitionToNextBattle() {
+        setTimeout(function () {
+            transitionDelay();
+        }, 3000);
+
+        if(player1Victories > 2) {
+            finalWinner = "Player 1";
+        }
+
+        if(player2Victories > 2) {
+            finalWinner = "Player 2";
+        } 
+    }
+
+    /**
+     * Action that occurs following a delay
+     */
+    function transitionDelay() {
+        $(".player1-status").empty();
+        $(".player1-waiting").empty();
+        $(".player2-status").empty();
+        $(".player2-waiting").empty();
+
+        if(finalWinner) {
+            //display final winner
+            alert("Final Winner is " + finalWinner);
+        }
+        else {
+            displayBattleOptions(userSelection);
         }
     }
 
@@ -91,6 +127,7 @@ $(document).ready(function () {
      * Creates display for player one and an initial data base entry
      */
     function readyPlayer1() {
+        userSelection = "player1";
         displayPlayerReadyButtons(false);
         displayBattleOptions("player1");
 
@@ -108,6 +145,7 @@ $(document).ready(function () {
      * Creates display for player two and an initial data base entry
      */
     function readyPlayer2() {
+        userSelection = "player2";
         displayPlayerReadyButtons(false);
         displayBattleOptions("player2");
 
@@ -258,6 +296,25 @@ $(document).ready(function () {
         }
     }
 
+    function displayResults(winner) {
+        var win = $("<h3>").text("HEROIC VICTOR!");
+        var lose = $("<h3>").text("VANQUISHED CHURL!");
+        var tie1 = $("<h3>").text("STALEMATE...");
+        var tie2 = $("<h3>").text("STALEMATE...");
+        if(winner === "player1") {
+            $(".player1-status").append(win);
+            $(".player2-status").append(lose);
+        }
+        else if (winner === "player2") {
+            $(".player2-status").append(win);
+            $(".player1-status").append(lose);
+        }
+        else {
+            $(".player1-status").append(tie1);
+            $(".player2-status").append(tie2);
+        }
+    }
+
     /**
      * Listens for changes to the values on the data base
      */
@@ -266,16 +323,18 @@ $(document).ready(function () {
             $("#ready-player1").hide();
             if (databaseReady) {
                 player1Selection = snapshot.val().player1.selection;
+                player1Victories = snapshot.val().player1.victories;
             }
-            displayNumberofWins("player1", snapshot.val().player1.victories);
+            displayNumberofWins("player1", player1Victories);
         }
 
         if (snapshot.val().player2) {
             $("#ready-player2").hide();
             if (databaseReady) {
                 player2Selection = snapshot.val().player2.selection;
+                player2Victories = snapshot.val().player2.victories;
             }
-            displayNumberofWins("player2", snapshot.val().player2.victories);
+            displayNumberofWins("player2", player2Victories);
         }
 
         if (player1Selection && !player2Selection) {
