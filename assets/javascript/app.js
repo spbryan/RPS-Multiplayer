@@ -32,6 +32,9 @@ $(document).ready(function () {
     var userSelection = "";
     var playerComments = "";
 
+    /**
+     * Time to fight.  Opponents displayed and a timer initiated
+     */
     function startBattle() {
         $("#card-timer").show();
         $("#battle-timer").html("<h4>" + "Battle in: 3" + "</h2>");
@@ -41,6 +44,10 @@ $(document).ready(function () {
         battleIntervalId = setInterval(battleTimer, 1000);
     }
 
+    /**
+     * Display a countdown that, at zero, starts the battle action, displays
+     * results, and trasitions to next round
+     */
     function battleTimer() {
         battleCountdown--;
         $("#battle-timer").html("<h4>" + "Battle in: " + battleCountdown + "</h4>");
@@ -51,11 +58,14 @@ $(document).ready(function () {
             var winner = determineWinner();
             updateWinCountAndResetSelection(winner);
             displayResults(winner);
-            transitionToNextBattle();
+            transitionToNextRound();
         }
     }
 
-    function transitionToNextBattle() {
+    /**
+     * Pause for 3 seconds, evaluate final winner status, and proceed to next stage
+     */
+    function transitionToNextRound() {
         setTimeout(function () {
             transitionDelay();
         }, 3000);
@@ -158,6 +168,30 @@ $(document).ready(function () {
     }
 
     /**
+     * Re-set the game
+     */
+    function playAgain() {
+        initializeFields();
+        $(".victory-circle").empty();
+        displayPlayerReadyButtons(true);
+        database.ref().remove(); 
+    }
+
+    /**
+     * Initialize values to start a new game
+     */
+    function initializeFields() {
+        player1Selection = "";
+        player1Victories = 0;
+        player2Selection = "";
+        player2Victories = 0;
+        ties = 0;
+        finalWinner = "";
+        userSelection = "";
+        playerComments = "";
+    }
+
+    /**
      * Updates the selection field in the data base
      */
     function saveSelection() {
@@ -182,6 +216,11 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * Query the table for win count, update according to latest win,
+     * and reset the player selections
+     * @param player 
+     */
     function updateWinCountAndResetSelection(player) {
         database.ref().once("value", function (snapshot) {
             var player1WinCount = snapshot.val().player1.victories;
@@ -199,8 +238,6 @@ $(document).ready(function () {
                 "player1/selection": "",
                 "player2/selection": ""
             });
-    
-            //database.ref().remove();  //don't delete
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -314,6 +351,10 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * Display the results of the round
+     * @param winner 
+     */
     function displayResults(winner) {
         var win = $("<h3>").text("HEROIC VICTOR!");
         var lose = $("<h3>").text("VANQUISHED CHURL!");
@@ -389,9 +430,9 @@ $(document).ready(function () {
     /** On-Click for image select */
     $(document).on("click", ".rps-image", saveSelection);
 
-    // $(".arena").hide();
+    /** On-Click for Play Again */
+    $(document).on("click", ".play-again-button", playAgain);
+
     $(".victory-circle").hide();
     $("#card-timer").hide();
-    // renderButtons();
-
 });
