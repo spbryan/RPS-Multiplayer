@@ -52,7 +52,6 @@ $(document).ready(function () {
             updateWinCountAndResetSelection(winner);
             displayResults(winner);
             transitionToNextBattle();
-            // alert("Winner is: " + winner);
         }
     }
 
@@ -80,8 +79,7 @@ $(document).ready(function () {
         $(".player2-waiting").empty();
 
         if(finalWinner) {
-            //display final winner
-            alert("Final Winner is " + finalWinner);
+            displayVictoryCircle(finalWinner);
         }
         else {
             displayBattleOptions(userSelection);
@@ -129,7 +127,7 @@ $(document).ready(function () {
     function readyPlayer1() {
         userSelection = "player1";
         displayPlayerReadyButtons(false);
-        displayBattleOptions("player1");
+        displayBattleOptions(userSelection);
 
         var player1 = database.ref("/player1");
         player1.update({
@@ -147,7 +145,7 @@ $(document).ready(function () {
     function readyPlayer2() {
         userSelection = "player2";
         displayPlayerReadyButtons(false);
-        displayBattleOptions("player2");
+        displayBattleOptions(userSelection);
 
         var player2 = database.ref("/player2");
         player2.update({
@@ -239,6 +237,26 @@ $(document).ready(function () {
         $("." + player + "-select").append(rock);
         $("." + player + "-select").append(paper);
         $("." + player + "-select").append(scissors);
+    }
+
+    function displayVictoryCircle(victor) {
+        $(".victory-circle").show();
+        var jumbotron = $("<div>");
+        jumbotron.addClass("jumbotron");
+        var header = $("<h1>");
+        header.addClass("display-4");
+        header.attr("id", "victory-header");
+        header.text("SUPREME CONQUERER");
+        var victorElement = $("<h2>");
+        victorElement.text(victor);
+        var button = $("<button>");
+        button.attr("type","submit");
+        button.addClass("btn btn-primary play-again-button");
+        button.text("RE-ENTER THE ARENA");
+        jumbotron.append(header);
+        jumbotron.append(victorElement);
+        jumbotron.append(button);           
+        $(".victory-circle").append(jumbotron);
     }
 
     function displaySelection(player, selection) {
@@ -371,7 +389,8 @@ $(document).ready(function () {
     /** On-Click for image select */
     $(document).on("click", ".rps-image", saveSelection);
 
-    $(".arena").hide();
+    // $(".arena").hide();
+    $(".victory-circle").hide();
     $("#card-timer").hide();
     // renderButtons();
 
