@@ -279,11 +279,17 @@ $(document).ready(function () {
         }
 
         if (player1Selection && !player2Selection) {
-            displayWaitingStatus("2");
+            console.log("2: " + $('.player2-select').text().trim().length);
+            if ($('.player2-select').text().trim().length == 0 ) {
+                displayWaitingStatus("2");
+            }
         }
 
         if (player2Selection && !player1Selection) {
-            displayWaitingStatus("1");
+            console.log("1: " + $('.player1-select').text().trim().length);
+            if ( $('.player1-select').text().trim().length == 0 ) {
+                displayWaitingStatus("1");
+            }
         }
 
         if (player1Selection && player2Selection) {
