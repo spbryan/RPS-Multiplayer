@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rock Paper Scissors</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=MedievalSharp|Nosifer|Uncial+Antiqua|UnifrakturMaguntia"
+    <link href="https://fonts.googleapis.com/css?family=MedievalSharp|Nosifer|Uncial+Antiqua|UnifrakturMaguntia|Dawning+of+a+New+Day|Princess+Sofia"
         rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-sm-12 player1-select">
                     </div>
-                    <div class="col-sm-12 player1-status">
+                    <div class="col-sm-12 status player1-status">
                     </div>
                     <div class="col-sm-12 waiting player1-waiting">
                     </div>
@@ -45,7 +45,7 @@
             <section class="col-sm-2 mid-field">
                 <div id="number-ties">
                 </div>
-                <div class="card" id="card-timer">
+                <div class="card text-center" id="card-timer">
                     <img class="card-img-top" src="./assets/images/swords.jpg" alt="Crossed Swords">
                     <div class="card-body" id="battle-timer">
                     </div>
@@ -63,10 +63,11 @@
                     </div>
                     <div class="col-sm-12 player2-select">
                     </div>
-                    <div class="col-sm-12 player2-status">
+                    <div class="col-sm-12 status player2-status">
                     </div>
                     <div class="col-sm-12 waiting player2-waiting">
                     </div>
+
                 </div>
             </section>
         </section>
@@ -74,6 +75,22 @@
             <div class="col-sm-12 victory-circle">
             </div>
         </section>
+        <!-- <section class="row text-center">
+            <section class="col-sm-2"></section>
+            <section class="col-sm-7" id="player-chat-input">
+                <form>
+                    <div class="form-group">
+                        <label for="comment">Speaketh Some Smack:</label>
+                        <textarea class="form-control" rows="1" id="player1-input"></textarea>
+                    </div>
+                </form>
+                <div class="scroll-box"></div>
+            </section>
+            <div class="form-group mt-3 col-sm-1">
+                    <button type="submit" class="btn btn-primary smack-button">SUBMIT</button>
+                </div>
+            <section class="col-sm-2"></section>
+        </section> -->
     </section>
     <script src="./assets/javascript/app.js"></script>
 </body>

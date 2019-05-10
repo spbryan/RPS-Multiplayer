@@ -3,15 +3,15 @@
  * Developer: Sean Bryan
  * Date: 2019-05-04
 *********************************************/
-
-/* font-family: 'UnifrakturMaguntia', cursive; */
 /* font-family: 'Uncial Antiqua', cursive; */
 /* font-family: 'Nosifer', cursive; */
 /* font-family: 'MedievalSharp', cursive; */
+/* font-family: 'Dawning of a New Day', cursive; */
+/* font-family: 'Princess Sofia', cursive; */
 
 /* Element Styling */
 body {
-    background-image: url(../images/background7.jpg);
+    background-image: url(../images/background8.jpg);
     background-attachment: fixed;
     background-size: cover;
 }
@@ -33,12 +33,11 @@ button {
 }
 
 h1 {
-    /* font-family: 'UnifrakturMaguntia', cursive; */
     font-family: 'Uncial Antiqua', cursive;
     /* font-family: 'Nosifer', cursive; */
     /* font-family: 'MedievalSharp', cursive; */
     color: aliceblue;
-    font-size: 70px;
+    font-size: 65px;
     /* text-shadow: 4px 4px #FF0000; */
     text-shadow: 4px 4px black;
 }
@@ -63,6 +62,7 @@ h2 {
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
     background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);   
     border: 2px solid rgb(28, 110, 164); 
+    font-family: 'MedievalSharp', cursive;
 }
 
 .rps-image {
@@ -73,10 +73,30 @@ h2 {
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
 }
 
+.scroll-box {
+    background-image: url(../images/old_parchment.jpg);
+    height: 90px; 
+    overflow-y: scroll;
+    border-color: black;
+    border-style: solid;
+    border-width: 6px 6px;
+}
+
 .selected-image {
     margin-top: 0;
     height: 300px;
     width: 300px;
+    border: 3px solid black;
+    border-style: inset;
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+}
+
+.status h3 {
+    font-family: 'Nosifer', cursive;
+    padding-top: 6px;
+    color: red;
+    background-color: black;
+    text-shadow: 4px 4px black;
     border: 3px solid black;
     border-style: inset;
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
@@ -95,14 +115,16 @@ h2 {
 }
 
 .image-banner {
+    background-image: url(../images/old_parchment.jpg);
     position: absolute;
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
-    background-color: black;
+    color: black;
     width: 250px;
     padding:3px 0;
+    font-family: 'Princess Sofia', cursive;
+    font-size: 25px;
 }
 
 .mid-field {
@@ -127,6 +149,19 @@ h2 {
 }
 
 #battle-timer {
-    background-color: black;
+    background-image: url(../images/old_parchment.jpg);
+    /* background-color: black; */
     color: white;
+}
+
+#battle-timer h3 {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 35px;
+    color: black;
+    text-shadow: 1px 1px darkred;
+}
+
+#player1-chat-input {
+    position: absolute;
+    bottom:0px;
 }

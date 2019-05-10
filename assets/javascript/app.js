@@ -37,7 +37,8 @@ $(document).ready(function () {
      */
     function startBattle() {
         $("#card-timer").show();
-        $("#battle-timer").html("<h4>" + "Battle in: 3" + "</h2>");
+        // $("#battle-timer").html("<h3>" + "Battle in: 3" + "</h3>");
+        $("#battle-timer").html("<h3>Battle!</h3><h3>3</h3>");
         displaySelection("player1", player1Selection);
         displaySelection("player2", player2Selection);
         battleCountdown = 3;
@@ -50,8 +51,8 @@ $(document).ready(function () {
      */
     function battleTimer() {
         battleCountdown--;
-        $("#battle-timer").html("<h4>" + "Battle in: " + battleCountdown + "</h4>");
-
+        // $("#battle-timer").html("<h3>" + "Battle in: " + battleCountdown + "</h3>");
+        $("#battle-timer").html("<h3>Battle!</h3><h3>" + battleCountdown + "</h3>");
         if (battleCountdown === 0) {
             stopBattleTimer();
             $("#card-timer").hide();
@@ -68,15 +69,15 @@ $(document).ready(function () {
     function transitionToNextRound() {
         setTimeout(function () {
             transitionDelay();
-        }, 3000);
+        }, 5000);
 
-        if(player1Victories > 2) {
+        if (player1Victories > 2) {
             finalWinner = "Player 1";
         }
 
-        if(player2Victories > 2) {
+        if (player2Victories > 2) {
             finalWinner = "Player 2";
-        } 
+        }
     }
 
     /**
@@ -88,7 +89,7 @@ $(document).ready(function () {
         $(".player2-status").empty();
         $(".player2-waiting").empty();
 
-        if(finalWinner) {
+        if (finalWinner) {
             displayVictoryCircle(finalWinner);
         }
         else {
@@ -173,8 +174,14 @@ $(document).ready(function () {
     function playAgain() {
         initializeFields();
         $(".victory-circle").empty();
+        $("#player1-wins").empty();
+        $("#player2-wins").empty();
+        $("#player1-chat-display").hide();
+        $("#player2-chat-display").hide();
+        $("#player1-chat-input").hide();
+        $("#player2-chat-input").hide();
         displayPlayerReadyButtons(true);
-        database.ref().remove(); 
+        database.ref().remove();
     }
 
     /**
@@ -287,12 +294,12 @@ $(document).ready(function () {
         var victorElement = $("<h2>");
         victorElement.text(victor);
         var button = $("<button>");
-        button.attr("type","submit");
+        button.attr("type", "submit");
         button.addClass("btn btn-primary play-again-button");
         button.text("RE-ENTER THE ARENA");
         jumbotron.append(header);
         jumbotron.append(victorElement);
-        jumbotron.append(button);           
+        jumbotron.append(button);
         $(".victory-circle").append(jumbotron);
     }
 
@@ -360,7 +367,7 @@ $(document).ready(function () {
         var lose = $("<h3>").text("VANQUISHED CHURL!");
         var tie1 = $("<h3>").text("STALEMATE...");
         var tie2 = $("<h3>").text("STALEMATE...");
-        if(winner === "player1") {
+        if (winner === "player1") {
             $(".player1-status").append(win);
             $(".player2-status").append(lose);
         }
@@ -398,14 +405,14 @@ $(document).ready(function () {
 
         if (player1Selection && !player2Selection) {
             console.log("2: " + $('.player2-select').text().trim().length);
-            if ($('.player2-select').text().trim().length == 0 ) {
+            if ($('.player2-select').text().trim().length == 0) {
                 displayWaitingStatus("2");
             }
         }
 
         if (player2Selection && !player1Selection) {
             console.log("1: " + $('.player1-select').text().trim().length);
-            if ( $('.player1-select').text().trim().length == 0 ) {
+            if ($('.player1-select').text().trim().length == 0) {
                 displayWaitingStatus("1");
             }
         }
@@ -435,4 +442,9 @@ $(document).ready(function () {
 
     $(".victory-circle").hide();
     $("#card-timer").hide();
+
+    // $("#player1-chat-display").hide();
+    // $("#player2-chat-display").hide();
+    // $("#player-chat-input").hide();
+    // $("#player2-chat-input").hide();
 });
