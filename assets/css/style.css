@@ -3,15 +3,10 @@
  * Developer: Sean Bryan
  * Date: 2019-05-04
 *********************************************/
-/* font-family: 'Uncial Antiqua', cursive; */
-/* font-family: 'Nosifer', cursive; */
-/* font-family: 'MedievalSharp', cursive; */
-/* font-family: 'Dawning of a New Day', cursive; */
-/* font-family: 'Princess Sofia', cursive; */
 
 /* Element Styling */
 body {
-    background-image: url(../images/background8.jpg);
+    background-image: url(../images/background5.jpg);
     background-attachment: fixed;
     background-size: cover;
 }
@@ -34,31 +29,31 @@ button {
 
 h1 {
     font-family: 'Uncial Antiqua', cursive;
-    /* font-family: 'Nosifer', cursive; */
-    /* font-family: 'MedievalSharp', cursive; */
     color: aliceblue;
     font-size: 65px;
-    /* text-shadow: 4px 4px #FF0000; */
     text-shadow: 4px 4px black;
 }
 
 h2 {
-    /* font-family: 'UnifrakturMaguntia', cursive; */
-    /* font-family: 'Uncial Antiqua', cursive; */
-    /* font-family: 'Nosifer', cursive; */
     font-family: 'MedievalSharp', cursive;
-    color: aliceblue;
-    /* font-size: 70px; */
-    /* text-shadow: 4px 4px #FF0000; */
+    color: rgb(217, 231, 243);
     text-shadow: 4px 4px black;
 }
 
 /* Class Styling */
-.waiting {
-    margin-top: 38%;
+.jumbotron {
+    background-image: url(../images/moon2.gif);
+    background-size: cover;
+    border-color: aliceblue;
+    border-style: solid;
+    border-width: 6px 6px;
+    border-style: inset;
+    border-radius: 25px;
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
 }
 
-.ready-button {
+.ready-button,
+.play-again-button {
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
     background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);   
     border: 2px solid rgb(28, 110, 164); 
@@ -71,6 +66,11 @@ h2 {
     border: 3px solid black;
     border-style: inset;
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+}
+
+.rps-banner {
+    font-family: 'MedievalSharp', cursive;
+    color: aliceblue;
 }
 
 .scroll-box {
@@ -92,14 +92,19 @@ h2 {
 }
 
 .status h3 {
-    font-family: 'Nosifer', cursive;
+    font-family: 'MedievalSharp', cursive;
     padding-top: 6px;
-    color: red;
-    background-color: black;
+    color: aliceblue;
+    background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%); 
     text-shadow: 4px 4px black;
     border: 3px solid black;
     border-style: inset;
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+    border-radius: 25px;
+}
+
+.waiting {
+    margin-top: 38%;
 }
 
 .waiting-image {
@@ -145,12 +150,10 @@ h2 {
     border: 3px solid black;
     border-style: inset;
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
-    /* border-radius: 25px; */
 }
 
 #battle-timer {
     background-image: url(../images/old_parchment.jpg);
-    /* background-color: black; */
     color: white;
 }
 

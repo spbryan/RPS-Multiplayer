@@ -69,7 +69,7 @@ $(document).ready(function () {
     function transitionToNextRound() {
         setTimeout(function () {
             transitionDelay();
-        }, 5000);
+        }, 3000);
 
         if (player1Victories > 2) {
             finalWinner = "Player 1";
@@ -222,7 +222,6 @@ $(document).ready(function () {
             $(".player2-select").empty();
         }
     }
-
     /**
      * Query the table for win count, update according to latest win,
      * and reset the player selections
@@ -283,6 +282,10 @@ $(document).ready(function () {
         $("." + player + "-select").append(scissors);
     }
 
+    /**
+     * Display the victor and expose button for next game
+     * @param victor 
+     */
     function displayVictoryCircle(victor) {
         $(".victory-circle").show();
         var jumbotron = $("<div>");
@@ -290,12 +293,12 @@ $(document).ready(function () {
         var header = $("<h1>");
         header.addClass("display-4");
         header.attr("id", "victory-header");
-        header.text("SUPREME CONQUERER");
+        header.text(victor);
         var victorElement = $("<h2>");
-        victorElement.text(victor);
+        victorElement.text("SUPREME MASTER & CONQUEROR!!");
         var button = $("<button>");
         button.attr("type", "submit");
-        button.addClass("btn btn-primary play-again-button");
+        button.addClass("btn btn-primary button play-again-button");
         button.text("RE-ENTER THE ARENA");
         jumbotron.append(header);
         jumbotron.append(victorElement);
@@ -303,12 +306,22 @@ $(document).ready(function () {
         $(".victory-circle").append(jumbotron);
     }
 
+    /**
+     * Display selection for round
+     * @param player 
+     * @param selection 
+     */
     function displaySelection(player, selection) {
         $("." + player + "-select").empty();
         var selection = createBattleElement(player, selection, "selected-image");
         $("." + player + "-waiting").append(selection);
     }
 
+    /**
+     * Display number of wins
+     * @param player 
+     * @param winCount 
+     */
     function displayNumberofWins(player, winCount) {
         $("#" + player + "-wins").html("<h2>" + "Victories: " + winCount + "</h2>");
     }
@@ -423,7 +436,6 @@ $(document).ready(function () {
             startBattle();
         }
 
-        //database.ref().remove();  //don't delete
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -442,9 +454,4 @@ $(document).ready(function () {
 
     $(".victory-circle").hide();
     $("#card-timer").hide();
-
-    // $("#player1-chat-display").hide();
-    // $("#player2-chat-display").hide();
-    // $("#player-chat-input").hide();
-    // $("#player2-chat-input").hide();
 });
