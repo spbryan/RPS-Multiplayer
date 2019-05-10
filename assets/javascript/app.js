@@ -37,7 +37,6 @@ $(document).ready(function () {
      */
     function startBattle() {
         $("#card-timer").show();
-        // $("#battle-timer").html("<h3>" + "Battle in: 3" + "</h3>");
         $("#battle-timer").html("<h3>Battle!</h3><h3>3</h3>");
         displaySelection("player1", player1Selection);
         displaySelection("player2", player2Selection);
@@ -452,6 +451,7 @@ $(document).ready(function () {
     /** On-Click for Play Again */
     $(document).on("click", ".play-again-button", playAgain);
 
+    database.ref().remove();
     $(".victory-circle").hide();
     $("#card-timer").hide();
 });
