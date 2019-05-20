@@ -1,7 +1,11 @@
 # RPS-Multiplayer
+
 A multiplayer game of the wildly exciting classic "rock-paper-scissors"
 
-This is a simple rock-paper-scissors game created to exercise new skills using firebase as part of work for a course.
+This is a simple rock-paper-scissors game created to exercise new skills using firebase as part of work for a course.  It is intended for two players interacting
+through separate browsers.
+
+url: https://spbryan.github.io/RPS-Multiplayer/
 
 How does it work?
 -  User selects either player 1 or player 2
